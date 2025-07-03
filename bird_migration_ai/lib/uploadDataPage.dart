@@ -1,0 +1,280 @@
+import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:geolocator/geolocator.dart';
+
+class UploadDataPage extends StatefulWidget {
+  const UploadDataPage({super.key});
+
+  @override
+  State<UploadDataPage> createState() => _UploadDataPageState();
+}
+
+class _UploadDataPageState extends State<UploadDataPage> {
+  String? _species;
+  double? _temperature;
+  double? _wind_speed;
+  String? _wind_direction;
+  Map<String, dynamic>? _coords;
+
+  Future<bool> uploadData() async {
+    try {
+      final url = Uri.parse("https://aarons-bird-migration-project.onrender.com/upload-data");
+      final response = await post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          "species": _species,
+          "temperature": _temperature,
+          "wind_speed": _wind_speed,
+          "wind_direction": _wind_direction,
+          "coords": _coords,
+        }),
+      );
+
+      final responseData = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return _buildAlertDialog(
+              title: "Thanks!",
+              content: "Your data has been saved into our database and will be used for training our model!",
+            );
+          },
+        );
+        return true;
+      } else {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return _buildAlertDialog(
+              title: "Oops!",
+              content: "There was an error processing your data. Please check your inputs and try again.",
+            );
+          },
+        );
+        return false;
+      }
+    } catch (error) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return _buildAlertDialog(
+            title: "Oops!",
+            content: "There was an issue reaching our server. Please try again later.",
+          );
+        },
+      );
+      return false;
+    }
+  }
+
+  Future<void> _getCoordinates() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return _buildAlertDialog(
+            title: "Location Required",
+            content: "Please enable location services to submit your data.",
+          );
+        },
+      );
+      return;
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return _buildAlertDialog(
+              title: "Location Required",
+              content: "You must allow location permissions to use this feature.",
+            );
+          },
+        );
+        return;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return _buildAlertDialog(
+            title: "Location Required",
+            content: "Location permissions have been denied forever. Please enable location permissions in settings.",
+          );
+        },
+      );
+      return;
+    }
+
+    try {
+      Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      setState(() {
+        _coords = {
+          "latitude": position.latitude,
+          "longitude": position.longitude,
+        };
+      });
+    } catch (error) {
+      print("Error fetching coordinates: $error");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getCoordinates();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFF2d305b), // Dark blue background
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF1b1f3b), // Darker blue for AppBar
+        title: const Text(
+          "Upload Bird Sighting Data",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Species:",
+                  style: TextStyle(color: Colors.white70, fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+                _buildTextField(
+                  hintText: "Enter bird species",
+                  onChanged: (text) => _species = text,
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  "Temperature (°C):",
+                  style: TextStyle(color: Colors.white70, fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+                _buildTextField(
+                  hintText: "Enter temperature",
+                  onChanged: (text) => _temperature = double.tryParse(text),
+                  keyboardType: TextInputType.number,
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  "Wind Speed (m/s):",
+                  style: TextStyle(color: Colors.white70, fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+                _buildTextField(
+                  hintText: "Enter wind speed",
+                  onChanged: (text) => _wind_speed = double.tryParse(text),
+                  keyboardType: TextInputType.number,
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  "Wind Direction:",
+                  style: TextStyle(color: Colors.white70, fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+                _buildTextField(
+                  hintText: "Enter wind direction",
+                  onChanged: (text) => _wind_direction = text,
+                ),
+                const SizedBox(height: 24),
+                Center(
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF629584), // Sage green button
+                      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    ),
+                    onPressed: () {
+                      if (_species?.isNotEmpty == true &&
+                          _temperature != null &&
+                          _wind_speed != null &&
+                          _wind_direction?.isNotEmpty == true &&
+                          _coords != null) {
+                        uploadData();
+                      } else {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return _buildAlertDialog(
+                              title: "Incomplete Information",
+                              content: "Please fill out all fields (enter 0 if there is no wind).",
+                            );
+                          },
+                        );
+                      }
+                    },
+                    child: const Text(
+                      "Submit",
+                      style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTextField({
+    required String hintText,
+    required Function(String) onChanged,
+    TextInputType keyboardType = TextInputType.text,
+  }) {
+    return TextField(
+      keyboardType: keyboardType,
+      onChanged: onChanged,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: const Color(0xFF387478), // Dark greenish fill
+        hintText: hintText,
+        hintStyle: const TextStyle(color: Colors.white70),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.white),
+        ),
+      ),
+      style: const TextStyle(color: Colors.white),
+    );
+  }
+
+  AlertDialog _buildAlertDialog({required String title, required String content}) {
+    return AlertDialog(
+      backgroundColor: const Color(0xFF1b1f3b),
+      title: Text(title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+      content: Text(content, style: const TextStyle(color: Colors.white70)),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: const Text("OK", style: TextStyle(color: Colors.white)),
+        ),
+      ],
+    );
+  }
+}
