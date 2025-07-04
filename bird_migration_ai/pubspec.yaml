@@ -39,6 +39,7 @@ dependencies:
   geolocator: any
   flutter_map: ^3.1.0
   latlong2: ^0.8.1
+  url_launcher: ^6.3.1
   image_picker: ^0.8.6
   positioned_tap_detector_2:
     git:
