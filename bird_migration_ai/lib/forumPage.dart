@@ -45,13 +45,16 @@ class _ForumPageState extends State<ForumPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textColor = theme.textTheme.bodyLarge?.color;
+    final cardColor = theme.cardColor;
     return Scaffold(
-      backgroundColor: const Color(0xFFe6e6dd),
+      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: const Color(0xFFd4d4c8),
-        title: const Text(
+        backgroundColor: theme.appBarTheme.backgroundColor ?? theme.colorScheme.surface,
+        title: Text(
           "Community Forum",
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black87),
+          style: TextStyle(fontWeight: FontWeight.bold, color: theme.appBarTheme.titleTextStyle?.color ?? textColor),
         ),
         centerTitle: true,
       ),
@@ -64,11 +67,11 @@ class _ForumPageState extends State<ForumPage> {
               Container(
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: cardColor,
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
+                      color: theme.shadowColor.withOpacity(0.05),
                       blurRadius: 10,
                       offset: const Offset(0, 4),
                     ),
@@ -79,30 +82,30 @@ class _ForumPageState extends State<ForumPage> {
                     Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF629584).withOpacity(0.1),
+                        color: theme.colorScheme.primary.withOpacity(0.1),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.forum,
-                        color: Color(0xFF629584),
+                        color: theme.colorScheme.primary,
                         size: 48,
                       ),
                     ),
                     const SizedBox(height: 20),
-                    const Text(
+                    Text(
                       "Join Our Community",
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black87,
+                        color: textColor,
                       ),
                     ),
                     const SizedBox(height: 12),
-                    const Text(
+                    Text(
                       "Connect with fellow bird enthusiasts, share sightings, discuss AI tools, and contribute to citizen science!",
                       style: TextStyle(
                         fontSize: 16,
-                        color: Colors.black54,
+                        color: textColor?.withOpacity(0.7),
                         height: 1.5,
                       ),
                       textAlign: TextAlign.center,
@@ -113,50 +116,50 @@ class _ForumPageState extends State<ForumPage> {
               const SizedBox(height: 30),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF629584),
+                  backgroundColor: theme.colorScheme.primary,
                   padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                   elevation: 4,
                 ),
                 onPressed: _joinDiscord,
-                child: const Text(
+                child: Text(
                   "Join on Discord",
-                  style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: theme.colorScheme.onPrimary, fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ),
               const SizedBox(height: 20),
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF387478).withOpacity(0.1),
+                  color: theme.colorScheme.secondary.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                    color: const Color(0xFF387478).withOpacity(0.2),
+                    color: theme.colorScheme.secondary.withOpacity(0.2),
                     width: 1,
                   ),
                 ),
-                child: const Column(
+                child: Column(
                   children: [
                     Icon(
                       Icons.info_outline,
-                      color: Color(0xFF387478),
+                      color: theme.colorScheme.secondary,
                       size: 24,
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text(
                       "What to expect:",
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF387478),
+                        color: theme.colorScheme.secondary,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text(
                       "• Share bird sightings and photos\n• Discuss migration patterns\n• Get help with species identification\n• Learn about conservation efforts",
                       style: TextStyle(
                         fontSize: 14,
-                        color: Colors.black54,
+                        color: textColor?.withOpacity(0.7),
                         height: 1.4,
                       ),
                       textAlign: TextAlign.left,

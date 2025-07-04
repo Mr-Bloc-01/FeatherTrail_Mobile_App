@@ -140,15 +140,18 @@ class _UploadDataPageState extends State<UploadDataPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textColor = theme.textTheme.bodyLarge?.color;
+    final cardColor = theme.cardColor;
     return Scaffold(
-      backgroundColor: const Color(0xFFe6e6dd), // Light beige background
+      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: const Color(0xFFd4d4c8), // Slightly darker beige for AppBar
-        title: const Text(
+        backgroundColor: theme.appBarTheme.backgroundColor ?? theme.colorScheme.surface,
+        title: Text(
           "Report Sighting",
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Colors.black87,
+            color: theme.appBarTheme.titleTextStyle?.color ?? textColor,
           ),
         ),
         centerTitle: true,
@@ -160,46 +163,54 @@ class _UploadDataPageState extends State<UploadDataPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   "Species:",
-                  style: TextStyle(color: Colors.black87, fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: textColor, fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
                 _buildTextField(
                   hintText: "Enter bird species",
                   onChanged: (text) => _species = text,
+                  fillColor: cardColor,
+                  textColor: textColor,
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   "Temperature (°C):",
-                  style: TextStyle(color: Colors.black87, fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: textColor, fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
                 _buildTextField(
                   hintText: "Enter temperature",
                   onChanged: (text) => _temperature = double.tryParse(text),
                   keyboardType: TextInputType.number,
+                  fillColor: cardColor,
+                  textColor: textColor,
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   "Wind Speed (m/s):",
-                  style: TextStyle(color: Colors.black87, fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: textColor, fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
                 _buildTextField(
                   hintText: "Enter wind speed",
                   onChanged: (text) => _wind_speed = double.tryParse(text),
                   keyboardType: TextInputType.number,
+                  fillColor: cardColor,
+                  textColor: textColor,
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   "Wind Direction:",
-                  style: TextStyle(color: Colors.black87, fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: textColor, fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
                 _buildTextField(
                   hintText: "Enter wind direction",
                   onChanged: (text) => _wind_direction = text,
+                  fillColor: cardColor,
+                  textColor: textColor,
                 ),
                 const SizedBox(height: 24),
                 Center(
@@ -246,21 +257,23 @@ class _UploadDataPageState extends State<UploadDataPage> {
     required String hintText,
     required Function(String) onChanged,
     TextInputType keyboardType = TextInputType.text,
+    Color? fillColor,
+    Color? textColor,
   }) {
     return TextField(
       keyboardType: keyboardType,
       onChanged: onChanged,
       decoration: InputDecoration(
         filled: true,
-        fillColor: Colors.white, // White fill for light background
+        fillColor: fillColor ?? Colors.white, // White fill for light background
         hintText: hintText,
-        hintStyle: const TextStyle(color: Colors.black54),
+        hintStyle: TextStyle(color: textColor ?? Colors.black54),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: Colors.black87),
         ),
       ),
-      style: const TextStyle(color: Colors.black87),
+      style: TextStyle(color: textColor ?? Colors.black87),
     );
   }
 

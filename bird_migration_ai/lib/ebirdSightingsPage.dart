@@ -129,11 +129,16 @@ class _EBirdSightingsPageState extends State<EBirdSightingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textColor = theme.textTheme.bodyLarge?.color;
+    final cardColor = theme.cardColor;
     return Scaffold(
       appBar: AppBar(
         title: const Text('eBird Sightings'),
+        backgroundColor: theme.appBarTheme.backgroundColor ?? theme.colorScheme.surface,
+        titleTextStyle: theme.appBarTheme.titleTextStyle ?? theme.textTheme.titleLarge,
       ),
-      backgroundColor: AppColors.backgroundPrimary,
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: Column(
         children: [
           Padding(
@@ -143,12 +148,16 @@ class _EBirdSightingsPageState extends State<EBirdSightingsPage> {
                 Expanded(
                   child: TextField(
                     controller: _searchController,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       hintText: 'Search by region code (e.g., US-CA, US, CA-ON)',
-                      border: OutlineInputBorder(),
+                      border: const OutlineInputBorder(),
                       isDense: true,
-                      contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                      contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                      filled: true,
+                      fillColor: cardColor,
+                      hintStyle: TextStyle(color: textColor?.withOpacity(0.7)),
                     ),
+                    style: TextStyle(color: textColor),
                   ),
                 ),
                 const SizedBox(width: AppDimensions.spacingM),
@@ -157,6 +166,10 @@ class _EBirdSightingsPageState extends State<EBirdSightingsPage> {
                     FocusScope.of(context).unfocus();
                     _fetchSightings(region: _searchController.text);
                   },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: theme.colorScheme.primary,
+                    foregroundColor: theme.colorScheme.onPrimary,
+                  ),
                   child: const Icon(Icons.search),
                 ),
                 if (_currentRegion != null && _currentRegion!.isNotEmpty)
@@ -167,6 +180,7 @@ class _EBirdSightingsPageState extends State<EBirdSightingsPage> {
                       _searchController.clear();
                       _fetchSightings(region: null);
                     },
+                    color: theme.iconTheme.color,
                   ),
               ],
             ),
@@ -175,9 +189,9 @@ class _EBirdSightingsPageState extends State<EBirdSightingsPage> {
             child: _loading
                 ? const Center(child: CircularProgressIndicator())
                 : _error != null
-                    ? Center(child: Text(_error!, style: AppTextStyles.bodyLarge))
+                    ? Center(child: Text(_error!, style: TextStyle(color: textColor)))
                     : _sightings.isEmpty
-                        ? const Center(child: Text('No recent sightings found.'))
+                        ? Center(child: Text('No recent sightings found.', style: TextStyle(color: textColor)))
                         : Column(
                             children: [
                               if (_userLocation != null)

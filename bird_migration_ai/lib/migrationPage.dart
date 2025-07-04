@@ -54,14 +54,17 @@ class _MigrationPageState extends State<MigrationPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textColor = theme.textTheme.bodyLarge?.color;
+    final cardColor = theme.cardColor;
     return Scaffold(
-      backgroundColor: const Color(0xFFe6e6dd), // Light beige background
+      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: const Color(0xFFd4d4c8), // Slightly darker beige for the AppBar
-        title: const Text(
+        backgroundColor: theme.appBarTheme.backgroundColor ?? theme.colorScheme.surface,
+        title: Text(
           "Migration Predictor",
-          style: TextStyle(
-            color: Colors.black87,
+          style: theme.appBarTheme.titleTextStyle ?? TextStyle(
+            color: theme.textTheme.titleLarge?.color,
             fontSize: 22,
             fontWeight: FontWeight.bold,
           ),
@@ -74,58 +77,54 @@ class _MigrationPageState extends State<MigrationPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const Text(
-              "Enter Temperature Change (°C):",
+            Text(
+              "Enter Temperature Change ( 0C):",
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Colors.black87, // Dark text for labels on light background
+                color: textColor,
               ),
             ),
             const SizedBox(height: 10),
             TextField(
               controller: _tempController,
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                labelText: "Change in °C",
+              decoration: InputDecoration(
+                labelText: "Change in  0C",
                 filled: true,
-                fillColor: Colors.white, // White for the input field on light background
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black54),
-                ),
-                labelStyle: TextStyle(color: Colors.black87),
+                fillColor: cardColor,
+                border: const OutlineInputBorder(),
+                labelStyle: TextStyle(color: textColor),
               ),
-              style: const TextStyle(color: Colors.black87),
+              style: TextStyle(color: textColor),
             ),
             const SizedBox(height: 15),
-            const Text(
+            Text(
               "Enter Wind Speed Change (m/s):",
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Colors.black87,
+                color: textColor,
               ),
             ),
             const SizedBox(height: 10),
             TextField(
               controller: _windSpeedController,
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: "Change in m/s",
                 filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black54),
-                ),
-                labelStyle: TextStyle(color: Colors.black87),
+                fillColor: cardColor,
+                border: const OutlineInputBorder(),
+                labelStyle: TextStyle(color: textColor),
               ),
-              style: const TextStyle(color: Colors.black87),
+              style: TextStyle(color: textColor),
             ),
             const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF629584), // Soft sage green button
+                  backgroundColor: theme.colorScheme.primary,
                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -136,7 +135,6 @@ class _MigrationPageState extends State<MigrationPage> {
                   "Get Migration Prediction",
                   style: TextStyle(
                     fontSize: 18,
-                    color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -156,13 +154,12 @@ class _MigrationPageState extends State<MigrationPage> {
                       urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                       subdomains: ['a', 'b', 'c'],
                     ),
-                    // Polyline Layer to Connect Markers
                     PolylineLayer(
                       polylines: [
                         Polyline(
                           points: _predictedCoords.map((location) => location).toList(),
                           strokeWidth: 3.0,
-                          color: const Color(0xFF629584), // Soft sage green for the polyline
+                          color: theme.colorScheme.primary,
                         ),
                       ],
                     ),
@@ -172,9 +169,9 @@ class _MigrationPageState extends State<MigrationPage> {
                           point: location,
                           width: 40,
                           height: 40,
-                          builder: (context) => const Icon(
+                          builder: (context) => Icon(
                             Icons.location_on,
-                            color: Color(0xFF196772),
+                            color: theme.colorScheme.secondary,
                             size: 20,
                           ),
                         );

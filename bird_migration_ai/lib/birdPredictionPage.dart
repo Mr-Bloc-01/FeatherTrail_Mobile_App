@@ -100,13 +100,19 @@ class _BirdPredictionPageState extends State<BirdPredictionPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textColor = theme.textTheme.bodyLarge?.color;
+    final cardColor = theme.cardColor;
     return Scaffold(
-      backgroundColor: const Color(0xFFe6e6dd), // Light beige background
+      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: const Color(0xFFd4d4c8),
-        title: const Text(
+        backgroundColor: theme.appBarTheme.backgroundColor ?? theme.colorScheme.surface,
+        title: Text(
           'Species Identifier',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black87),
+          style: theme.appBarTheme.titleTextStyle ?? TextStyle(
+            fontWeight: FontWeight.bold,
+            color: theme.textTheme.titleLarge?.color,
+          ),
         ),
         centerTitle: true,
       ),
@@ -118,9 +124,9 @@ class _BirdPredictionPageState extends State<BirdPredictionPage> {
             Container(
               height: 300,
               decoration: BoxDecoration(
-                color: Colors.white, // White placeholder background
+                color: cardColor,
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.black54),
+                border: Border.all(color: theme.dividerColor),
               ),
               child: _selectedImage != null
                   ? ClipRRect(
@@ -130,24 +136,24 @@ class _BirdPredictionPageState extends State<BirdPredictionPage> {
                   fit: BoxFit.cover,
                 ),
               )
-                  : const Center(
+                  : Center(
                 child: Text(
                   'No Image Selected',
-                  style: TextStyle(color: Colors.black54, fontSize: 18),
+                  style: TextStyle(color: textColor?.withOpacity(0.7), fontSize: 18),
                 ),
               ),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF629584), // Soft sage green button
+                backgroundColor: theme.colorScheme.primary,
                 padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               ),
               onPressed: _pickImage,
-              child: const Text(
+              child: Text(
                 'Pick Image from Gallery',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: theme.colorScheme.onPrimary),
               ),
             ),
             const SizedBox(height: 20),
@@ -157,21 +163,21 @@ class _BirdPredictionPageState extends State<BirdPredictionPage> {
                 width: 40,  // Fixed width
                 height: 40, // Fixed height
                 child: CircularProgressIndicator(
-                  color: Colors.black54,
+                  color: theme.colorScheme.secondary,
                   strokeWidth: 4.0, // Optional: controls the thickness of the spinner
                 ),
               ),
             )
             : ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF387478), // Darker green button
+                backgroundColor: theme.colorScheme.secondary,
                 padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               ),
               onPressed: _classifyBird,
-              child: const Text(
+              child: Text(
                 'Classify Bird',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: theme.colorScheme.onSecondary),
               ),
             ),
             const SizedBox(height: 20),
@@ -179,13 +185,13 @@ class _BirdPredictionPageState extends State<BirdPredictionPage> {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: Colors.white, // White background for result card
+                  color: cardColor,
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.black54),
+                  border: Border.all(color: theme.dividerColor),
                 ),
                 child: Text(
                   'Prediction: $_prediction\nConfidence: ${(_confidence! * 100).toStringAsFixed(2)}%',
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: textColor),
                   textAlign: TextAlign.center,
                 ),
               ),
