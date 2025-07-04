@@ -3,6 +3,7 @@ import 'package:bird_migration_ai/forumPage.dart';
 import 'package:bird_migration_ai/homePage.dart';
 import 'package:bird_migration_ai/migrationPage.dart';
 import 'package:bird_migration_ai/uploadDataPage.dart';
+import 'package:bird_migration_ai/ebirdSightingsPage.dart';
 import 'package:bird_migration_ai/constants/app_colors.dart';
 import 'package:bird_migration_ai/constants/app_strings.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ class _RouteWidgetState extends State<RouteWidget> {
     MigrationPage(),
     BirdPredictionPage(),
     UploadDataPage(),
+    EBirdSightingsPage(),
     ForumPage(),
   ];
 
@@ -58,6 +60,10 @@ class _RouteWidgetState extends State<RouteWidget> {
           BottomNavigationBarItem(
             icon: Icon(Icons.data_saver_on),
             label: AppStrings.navReport,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.public),
+            label: 'eBird',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.forum),
