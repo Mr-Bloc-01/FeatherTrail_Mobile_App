@@ -1,319 +1,255 @@
 import 'package:flutter/material.dart';
+import 'package:bird_migration_ai/constants/app_colors.dart';
+import 'package:bird_migration_ai/constants/app_dimensions.dart';
+import 'package:bird_migration_ai/constants/app_text_styles.dart';
+import 'package:bird_migration_ai/constants/app_strings.dart';
+import 'package:bird_migration_ai/utils/ui_utils.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFe6e6dd),
-      appBar: AppBar(
-        backgroundColor: const Color(0xFFd4d4c8),
-        title: const Text(
-          'FeatherTrail',
-          style: TextStyle(
-            color: Colors.black87,
-            fontSize: 24,
-            fontWeight: FontWeight.w600,
-            letterSpacing: 0.5,
-          ),
-        ),
-        centerTitle: true,
-        elevation: 2,
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Hero Section
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF629584),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: const Icon(
-                          Icons.flutter_dash,
-                          color: Colors.white,
-                          size: 28,
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      const Expanded(
-                        child: Text(
-                          'Welcome to FeatherTrail',
-                          style: TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87,
-                            letterSpacing: -0.5,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  const Text(
-                    'Your gateway to understanding bird migration patterns through AI-powered insights and community-driven data collection.',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.black54,
-                      height: 1.5,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            
-            const SizedBox(height: 24),
-            
-            // Features Section
-            const SectionTitle(title: 'Discover What You Can Do'),
-            const SizedBox(height: 16),
-            
-            // Feature Cards
-            _buildFeatureCard(
-              icon: Icons.trending_up,
-              title: 'Predict Migration Patterns',
-              description: 'Analyze how temperature and wind changes affect bird migration routes using our advanced AI models.',
-              color: const Color(0xFF629584),
-            ),
-            
-            const SizedBox(height: 16),
-            
-            _buildFeatureCard(
-              icon: Icons.camera_alt,
-              title: 'Identify Bird Species',
-              description: 'Upload photos to instantly identify bird species with our AI-powered image recognition system.',
-              color: const Color(0xFF387478),
-            ),
-            
-            const SizedBox(height: 16),
-            
-            _buildFeatureCard(
-              icon: Icons.location_on,
-              title: 'Contribute Sightings',
-              description: 'Share your bird observations to help improve our predictions and support conservation research.',
-              color: const Color(0xFF9ec1b8),
-            ),
-            
-            const SizedBox(height: 32),
-            
-            // Mission Section
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    const Color(0xFF629584).withOpacity(0.1),
-                    const Color(0xFF387478).withOpacity(0.05),
-                  ],
-                ),
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(
-                  color: const Color(0xFF629584).withOpacity(0.2),
-                  width: 1,
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.eco,
-                        color: Color(0xFF387478),
-                        size: 24,
-                      ),
-                      const SizedBox(width: 12),
-                      const Text(
-                        'Our Mission',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF387478),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 12),
-                  const Text(
-                    'Bird migration is one of nature\'s most fascinating phenomena, connecting ecosystems across continents. FeatherTrail combines cutting-edge technology with community science to unlock the secrets of these incredible journeys.',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.black54,
-                      height: 1.6,
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  const Text(
-                    'By understanding migration patterns, we can better protect critical habitats and contribute to global conservation efforts.',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.black54,
-                      height: 1.6,
-                      fontStyle: FontStyle.italic,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            
-            const SizedBox(height: 24),
-            
-            // Call to Action
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: const Color(0xFF387478),
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color(0xFF387478).withOpacity(0.3),
-                    blurRadius: 8,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  const Icon(
-                    Icons.explore,
-                    color: Colors.white,
-                    size: 32,
-                  ),
-                  const SizedBox(height: 12),
-                  const Text(
-                    'Ready to Explore?',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  const Text(
-                    'Start your journey into the world of bird migration. Every observation counts!',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white70,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
-            
-            const SizedBox(height: 20),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildFeatureCard({
-    required IconData icon,
-    required String title,
-    required String description,
-    required Color color,
-  }) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Icon(
-              icon,
-              color: color,
-              size: 24,
-            ),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  description,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Colors.black54,
-                    height: 1.4,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  State<HomePage> createState() => _HomePageState();
 }
 
-class SectionTitle extends StatelessWidget {
-  final String title;
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+  late AnimationController _fadeController;
+  late AnimationController _slideController;
+  late Animation<double> _fadeAnimation;
+  late Animation<Offset> _slideAnimation;
 
-  const SectionTitle({super.key, required this.title});
+  @override
+  void initState() {
+    super.initState();
+    
+    _fadeController = AnimationController(
+      duration: const Duration(milliseconds: AppDimensions.animationSlow),
+      vsync: this,
+    );
+    
+    _slideController = AnimationController(
+      duration: const Duration(milliseconds: AppDimensions.animationNormal),
+      vsync: this,
+    );
+
+    _fadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(
+      parent: _fadeController,
+      curve: Curves.easeIn,
+    ));
+
+    _slideAnimation = Tween<Offset>(
+      begin: const Offset(0, 0.3),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(
+      parent: _slideController,
+      curve: Curves.easeOutCubic,
+    ));
+
+    // Start animations
+    _fadeController.forward();
+    Future.delayed(const Duration(milliseconds: AppDimensions.animationFast), () {
+      _slideController.forward();
+    });
+  }
+
+  @override
+  void dispose() {
+    _fadeController.dispose();
+    _slideController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      title,
-      style: const TextStyle(
-        fontSize: 22,
-        fontWeight: FontWeight.bold,
-        color: Color(0xFF387478),
-        letterSpacing: -0.5,
+    return FadeTransition(
+      opacity: _fadeAnimation,
+      child: SlideTransition(
+        position: _slideAnimation,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(AppStrings.titleHome),
+          ),
+          body: SingleChildScrollView(
+            padding: const EdgeInsets.all(AppDimensions.paddingL),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Hero Section
+                _buildHeroSection(),
+                
+                const SizedBox(height: AppDimensions.spacingXXL),
+                
+                // Features Section
+                UiUtils.buildSectionTitle(AppStrings.discoverTitle),
+                const SizedBox(height: AppDimensions.spacingL),
+                
+                // Feature Cards
+                UiUtils.buildFeatureCard(
+                  icon: Icons.trending_up,
+                  title: AppStrings.featurePredictTitle,
+                  description: AppStrings.featurePredictDesc,
+                  color: AppColors.sageGreen,
+                ),
+                
+                const SizedBox(height: AppDimensions.spacingL),
+                
+                UiUtils.buildFeatureCard(
+                  icon: Icons.camera_alt,
+                  title: AppStrings.featureIdentifyTitle,
+                  description: AppStrings.featureIdentifyDesc,
+                  color: AppColors.darkGreen,
+                ),
+                
+                const SizedBox(height: AppDimensions.spacingL),
+                
+                UiUtils.buildFeatureCard(
+                  icon: Icons.location_on,
+                  title: AppStrings.featureContributeTitle,
+                  description: AppStrings.featureContributeDesc,
+                  color: AppColors.lightGreen,
+                ),
+                
+                const SizedBox(height: AppDimensions.spacingXXXL),
+                
+                // Mission Section
+                _buildMissionSection(),
+                
+                const SizedBox(height: AppDimensions.spacingXXL),
+                
+                // Call to Action
+                _buildCallToAction(),
+                
+                const SizedBox(height: AppDimensions.spacingXL),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHeroSection() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(AppDimensions.paddingXL),
+      decoration: BoxDecoration(
+        color: AppColors.cardBackground,
+        borderRadius: BorderRadius.circular(AppDimensions.radiusXL),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.shadowLight,
+            blurRadius: AppDimensions.shadowBlurL,
+            offset: const Offset(0, AppDimensions.shadowOffsetM),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(AppDimensions.paddingS),
+                decoration: BoxDecoration(
+                  color: AppColors.sageGreen,
+                  borderRadius: BorderRadius.circular(AppDimensions.radiusL),
+                ),
+                child: const Icon(
+                  Icons.flutter_dash,
+                  color: AppColors.textLight,
+                  size: AppDimensions.iconL,
+                ),
+              ),
+              const SizedBox(width: AppDimensions.spacingL),
+              Expanded(
+                child: Text(
+                  AppStrings.welcomeTitle,
+                  style: AppTextStyles.heading2,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppDimensions.spacingL),
+          Text(
+            AppStrings.appTagline,
+            style: AppTextStyles.bodyMedium,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMissionSection() {
+    return UiUtils.buildGradientContainer(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Icon(
+                Icons.eco,
+                color: AppColors.darkGreen,
+                size: AppDimensions.iconM,
+              ),
+              const SizedBox(width: AppDimensions.spacingM),
+              Text(
+                AppStrings.missionTitle,
+                style: AppTextStyles.heading5,
+              ),
+            ],
+          ),
+          const SizedBox(height: AppDimensions.spacingM),
+          Text(
+            AppStrings.missionText1,
+            style: AppTextStyles.bodyMedium,
+          ),
+          const SizedBox(height: AppDimensions.spacingM),
+          Text(
+            AppStrings.missionText2,
+            style: AppTextStyles.bodyMedium.copyWith(fontStyle: FontStyle.italic),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCallToAction() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(AppDimensions.paddingL),
+      decoration: BoxDecoration(
+        color: AppColors.darkGreen,
+        borderRadius: BorderRadius.circular(AppDimensions.radiusXL),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.darkGreen.withOpacity(0.3),
+            blurRadius: AppDimensions.shadowBlurM,
+            offset: const Offset(0, AppDimensions.shadowOffsetM),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          const Icon(
+            Icons.explore,
+            color: AppColors.textLight,
+            size: AppDimensions.iconXL,
+          ),
+          const SizedBox(height: AppDimensions.spacingM),
+          Text(
+            AppStrings.readyToExplore,
+            style: AppTextStyles.heading5.copyWith(color: AppColors.textLight),
+          ),
+          const SizedBox(height: AppDimensions.spacingS),
+          Text(
+            AppStrings.exploreDescription,
+            style: AppTextStyles.caption,
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     );
   }

@@ -3,6 +3,8 @@ import 'package:bird_migration_ai/forumPage.dart';
 import 'package:bird_migration_ai/homePage.dart';
 import 'package:bird_migration_ai/migrationPage.dart';
 import 'package:bird_migration_ai/uploadDataPage.dart';
+import 'package:bird_migration_ai/constants/app_colors.dart';
+import 'package:bird_migration_ai/constants/app_strings.dart';
 import 'package:flutter/material.dart';
 
 class RouteWidget extends StatefulWidget {
@@ -13,54 +15,53 @@ class RouteWidget extends StatefulWidget {
 }
 
 class _RouteWidgetState extends State<RouteWidget> {
-  int pageIndex = 0; // Index of the current active page
+  int _currentIndex = 0;
 
-  static const List<Widget> _widgetOptions = <Widget>[
+  static const List<Widget> _pages = <Widget>[
     HomePage(),
     MigrationPage(),
     BirdPredictionPage(),
     UploadDataPage(),
     ForumPage(),
-  ]; // Page options
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFe6e6dd), // Light beige background
-      body: _widgetOptions.elementAt(pageIndex),
+      body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed, // Fixes the issue of not appearing if more than 3 items
-        backgroundColor: const Color(0xFFd4d4c8), // Slightly darker beige for navigation bar
-        selectedItemColor: const Color(0xFF629584), // Soft sage green for selected item
-        unselectedItemColor: Colors.white70, // Soft white for unselected items
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: AppColors.backgroundSecondary,
+        selectedItemColor: AppColors.sageGreen,
+        unselectedItemColor: AppColors.textLightSecondary,
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
         unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.normal),
-        currentIndex: pageIndex,
+        currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
-            pageIndex = index; // Set the page index to the page index they tapped on
+            _currentIndex = index;
           });
         },
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: "Home",
+            label: AppStrings.navHome,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.map),
-            label: "Migration Path",
+            label: AppStrings.navMigration,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.image_outlined),
-            label: "Predict Species",
+            label: AppStrings.navPredict,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.data_saver_on),
-            label: "Report Sighting",
+            label: AppStrings.navReport,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.forum),
-            label: "Community",
+            label: AppStrings.navCommunity,
           ),
         ],
       ),
