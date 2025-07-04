@@ -55,13 +55,13 @@ class _MigrationPageState extends State<MigrationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF2d305b), // Dark blue background
+      backgroundColor: const Color(0xFFe6e6dd), // Light beige background
       appBar: AppBar(
-        backgroundColor: const Color(0xFF1b1f3b), // Darker blue for the AppBar
+        backgroundColor: const Color(0xFFd4d4c8), // Slightly darker beige for the AppBar
         title: const Text(
-          "Bird Migration Predictor",
+          "Migration Predictor",
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.black87,
             fontSize: 22,
             fontWeight: FontWeight.bold,
           ),
@@ -79,7 +79,7 @@ class _MigrationPageState extends State<MigrationPage> {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFFE2F1E7), // Off-white for labels
+                color: Colors.black87, // Dark text for labels on light background
               ),
             ),
             const SizedBox(height: 10),
@@ -89,13 +89,13 @@ class _MigrationPageState extends State<MigrationPage> {
               decoration: const InputDecoration(
                 labelText: "Change in °C",
                 filled: true,
-                fillColor: Color(0xFF387478), // Sage green for the input field
+                fillColor: Colors.white, // White for the input field on light background
                 border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white70),
+                  borderSide: BorderSide(color: Colors.black54),
                 ),
-                labelStyle: TextStyle(color: Colors.white),
+                labelStyle: TextStyle(color: Colors.black87),
               ),
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.black87),
             ),
             const SizedBox(height: 15),
             const Text(
@@ -103,7 +103,7 @@ class _MigrationPageState extends State<MigrationPage> {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFFE2F1E7),
+                color: Colors.black87,
               ),
             ),
             const SizedBox(height: 10),
@@ -113,13 +113,13 @@ class _MigrationPageState extends State<MigrationPage> {
               decoration: const InputDecoration(
                 labelText: "Change in m/s",
                 filled: true,
-                fillColor: Color(0xFF387478),
+                fillColor: Colors.white,
                 border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white70),
+                  borderSide: BorderSide(color: Colors.black54),
                 ),
-                labelStyle: TextStyle(color: Colors.white),
+                labelStyle: TextStyle(color: Colors.black87),
               ),
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.black87),
             ),
             const SizedBox(height: 20),
             Center(

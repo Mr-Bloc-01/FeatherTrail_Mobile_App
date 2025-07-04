@@ -141,14 +141,14 @@ class _UploadDataPageState extends State<UploadDataPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF2d305b), // Dark blue background
+      backgroundColor: const Color(0xFFe6e6dd), // Light beige background
       appBar: AppBar(
-        backgroundColor: const Color(0xFF1b1f3b), // Darker blue for AppBar
+        backgroundColor: const Color(0xFFd4d4c8), // Slightly darker beige for AppBar
         title: const Text(
-          "Upload Bird Sighting Data",
+          "Report Sighting",
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Colors.white,
+            color: Colors.black87,
           ),
         ),
         centerTitle: true,
@@ -162,7 +162,7 @@ class _UploadDataPageState extends State<UploadDataPage> {
               children: [
                 const Text(
                   "Species:",
-                  style: TextStyle(color: Colors.white70, fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: Colors.black87, fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
                 _buildTextField(
@@ -172,7 +172,7 @@ class _UploadDataPageState extends State<UploadDataPage> {
                 const SizedBox(height: 16),
                 const Text(
                   "Temperature (°C):",
-                  style: TextStyle(color: Colors.white70, fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: Colors.black87, fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
                 _buildTextField(
@@ -183,7 +183,7 @@ class _UploadDataPageState extends State<UploadDataPage> {
                 const SizedBox(height: 16),
                 const Text(
                   "Wind Speed (m/s):",
-                  style: TextStyle(color: Colors.white70, fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: Colors.black87, fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
                 _buildTextField(
@@ -194,7 +194,7 @@ class _UploadDataPageState extends State<UploadDataPage> {
                 const SizedBox(height: 16),
                 const Text(
                   "Wind Direction:",
-                  style: TextStyle(color: Colors.white70, fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: Colors.black87, fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
                 _buildTextField(
@@ -252,27 +252,27 @@ class _UploadDataPageState extends State<UploadDataPage> {
       onChanged: onChanged,
       decoration: InputDecoration(
         filled: true,
-        fillColor: const Color(0xFF387478), // Dark greenish fill
+        fillColor: Colors.white, // White fill for light background
         hintText: hintText,
-        hintStyle: const TextStyle(color: Colors.white70),
+        hintStyle: const TextStyle(color: Colors.black54),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
         focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white),
+          borderSide: BorderSide(color: Colors.black87),
         ),
       ),
-      style: const TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.black87),
     );
   }
 
   AlertDialog _buildAlertDialog({required String title, required String content}) {
     return AlertDialog(
-      backgroundColor: const Color(0xFF1b1f3b),
-      title: Text(title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-      content: Text(content, style: const TextStyle(color: Colors.white70)),
+      backgroundColor: const Color(0xFFd4d4c8),
+      title: Text(title, style: const TextStyle(color: Colors.black87, fontWeight: FontWeight.bold)),
+      content: Text(content, style: const TextStyle(color: Colors.black54)),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text("OK", style: TextStyle(color: Colors.white)),
+          child: const Text("OK", style: TextStyle(color: Colors.black87)),
         ),
       ],
     );

@@ -1,4 +1,5 @@
 import 'package:bird_migration_ai/birdPredictionPage.dart';
+import 'package:bird_migration_ai/forumPage.dart';
 import 'package:bird_migration_ai/homePage.dart';
 import 'package:bird_migration_ai/migrationPage.dart';
 import 'package:bird_migration_ai/uploadDataPage.dart';
@@ -19,16 +20,17 @@ class _RouteWidgetState extends State<RouteWidget> {
     MigrationPage(),
     BirdPredictionPage(),
     UploadDataPage(),
+    ForumPage(),
   ]; // Page options
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF2d305b), // Dark blue background
+      backgroundColor: const Color(0xFFe6e6dd), // Light beige background
       body: _widgetOptions.elementAt(pageIndex),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed, // Fixes the issue of not appearing if more than 3 items
-        backgroundColor: const Color(0xFF1b1f3b), // Darker blue for navigation bar
+        backgroundColor: const Color(0xFFd4d4c8), // Slightly darker beige for navigation bar
         selectedItemColor: const Color(0xFF629584), // Soft sage green for selected item
         unselectedItemColor: Colors.white70, // Soft white for unselected items
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
@@ -55,6 +57,10 @@ class _RouteWidgetState extends State<RouteWidget> {
           BottomNavigationBarItem(
             icon: Icon(Icons.data_saver_on),
             label: "Report Sighting",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.forum),
+            label: "Community",
           ),
         ],
       ),

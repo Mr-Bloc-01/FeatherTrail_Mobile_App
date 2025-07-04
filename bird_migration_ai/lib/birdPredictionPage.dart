@@ -75,21 +75,21 @@ class _BirdPredictionPageState extends State<BirdPredictionPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: const Color(0xFF1b1f3b),
+          backgroundColor: const Color(0xFFd4d4c8),
           title: Text(
             title,
-            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            style: const TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
           ),
           content: Text(
             message,
-            style: const TextStyle(color: Colors.white70),
+            style: const TextStyle(color: Colors.black54),
           ),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
               child: const Text(
                 'OK',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.black87),
               ),
             ),
           ],
@@ -101,12 +101,12 @@ class _BirdPredictionPageState extends State<BirdPredictionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF2d305b), // Dark blue background
+      backgroundColor: const Color(0xFFe6e6dd), // Light beige background
       appBar: AppBar(
-        backgroundColor: const Color(0xFF1b1f3b),
+        backgroundColor: const Color(0xFFd4d4c8),
         title: const Text(
-          'Bird Classifier',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          'Species Identifier',
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black87),
         ),
         centerTitle: true,
       ),
@@ -118,9 +118,9 @@ class _BirdPredictionPageState extends State<BirdPredictionPage> {
             Container(
               height: 300,
               decoration: BoxDecoration(
-                color: const Color(0xFF387478), // Sage green placeholder background
+                color: Colors.white, // White placeholder background
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.white70),
+                border: Border.all(color: Colors.black54),
               ),
               child: _selectedImage != null
                   ? ClipRRect(
@@ -133,7 +133,7 @@ class _BirdPredictionPageState extends State<BirdPredictionPage> {
                   : const Center(
                 child: Text(
                   'No Image Selected',
-                  style: TextStyle(color: Colors.white70, fontSize: 18),
+                  style: TextStyle(color: Colors.black54, fontSize: 18),
                 ),
               ),
             ),
@@ -157,7 +157,7 @@ class _BirdPredictionPageState extends State<BirdPredictionPage> {
                 width: 40,  // Fixed width
                 height: 40, // Fixed height
                 child: CircularProgressIndicator(
-                  color: Colors.white70,
+                  color: Colors.black54,
                   strokeWidth: 4.0, // Optional: controls the thickness of the spinner
                 ),
               ),
@@ -179,13 +179,13 @@ class _BirdPredictionPageState extends State<BirdPredictionPage> {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF1b1f3b), // Darker background for result card
+                  color: Colors.white, // White background for result card
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.white70),
+                  border: Border.all(color: Colors.black54),
                 ),
                 child: Text(
                   'Prediction: $_prediction\nConfidence: ${(_confidence! * 100).toStringAsFixed(2)}%',
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87),
                   textAlign: TextAlign.center,
                 ),
               ),

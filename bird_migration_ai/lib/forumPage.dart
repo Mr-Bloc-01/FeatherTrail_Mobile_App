@@ -24,19 +24,19 @@ class _ForumPageState extends State<ForumPage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: const Color(0xFF1b1f3b),
+        backgroundColor: const Color(0xFFd4d4c8),
         title: Text(
           title,
-          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: const TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
         ),
         content: Text(
           content,
-          style: const TextStyle(color: Colors.white70),
+          style: const TextStyle(color: Colors.black54),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text("OK", style: TextStyle(color: Colors.white)),
+            child: const Text("OK", style: TextStyle(color: Colors.black87)),
           ),
         ],
       ),
@@ -46,12 +46,12 @@ class _ForumPageState extends State<ForumPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF2d305b),
+      backgroundColor: const Color(0xFFe6e6dd),
       appBar: AppBar(
-        backgroundColor: const Color(0xFF1b1f3b),
+        backgroundColor: const Color(0xFFd4d4c8),
         title: const Text(
-          "FeatherTrail Forum",
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          "Community Forum",
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black87),
         ),
         centerTitle: true,
       ),
@@ -61,10 +61,54 @@ class _ForumPageState extends State<ForumPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
-                "Join our Discord community to discuss bird sightings, AI tools, and citizen science!",
-                style: TextStyle(fontSize: 18, color: Colors.white70),
-                textAlign: TextAlign.center,
+              Container(
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF629584).withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: const Icon(
+                        Icons.forum,
+                        color: Color(0xFF629584),
+                        size: 48,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    const Text(
+                      "Join Our Community",
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    const Text(
+                      "Connect with fellow bird enthusiasts, share sightings, discuss AI tools, and contribute to citizen science!",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.black54,
+                        height: 1.5,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(height: 30),
               ElevatedButton(
@@ -72,11 +116,52 @@ class _ForumPageState extends State<ForumPage> {
                   backgroundColor: const Color(0xFF629584),
                   padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  elevation: 4,
                 ),
                 onPressed: _joinDiscord,
                 child: const Text(
                   "Join on Discord",
                   style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF387478).withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: const Color(0xFF387478).withOpacity(0.2),
+                    width: 1,
+                  ),
+                ),
+                child: const Column(
+                  children: [
+                    Icon(
+                      Icons.info_outline,
+                      color: Color(0xFF387478),
+                      size: 24,
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      "What to expect:",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF387478),
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      "• Share bird sightings and photos\n• Discuss migration patterns\n• Get help with species identification\n• Learn about conservation efforts",
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black54,
+                        height: 1.4,
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -85,4 +170,4 @@ class _ForumPageState extends State<ForumPage> {
       ),
     );
   }
-}
+} 
