@@ -164,12 +164,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 ),
               ),
               const SizedBox(width: AppDimensions.spacingL),
-              Expanded(
-                child: Text(
-                  AppStrings.welcomeTitle,
-                  style: AppTextStyles.heading2,
-                ),
-              ),
+              // Removed duplicate FeatherTrail title here
             ],
           ),
           const SizedBox(height: AppDimensions.spacingL),
@@ -183,13 +178,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   Widget _buildMissionSection() {
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? AppColors.textPrimary;
     return UiUtils.buildGradientContainer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              const Icon(
+              Icon(
                 Icons.eco,
                 color: AppColors.darkGreen,
                 size: AppDimensions.iconM,
@@ -197,19 +193,19 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               const SizedBox(width: AppDimensions.spacingM),
               Text(
                 AppStrings.missionTitle,
-                style: AppTextStyles.heading5,
+                style: AppTextStyles.heading5.copyWith(color: AppColors.darkGreen),
               ),
             ],
           ),
           const SizedBox(height: AppDimensions.spacingM),
           Text(
             AppStrings.missionText1,
-            style: AppTextStyles.bodyMedium,
+            style: AppTextStyles.bodyMedium.copyWith(color: textColor),
           ),
           const SizedBox(height: AppDimensions.spacingM),
           Text(
             AppStrings.missionText2,
-            style: AppTextStyles.bodyMedium.copyWith(fontStyle: FontStyle.italic),
+            style: AppTextStyles.bodyMedium.copyWith(color: textColor, fontStyle: FontStyle.italic),
           ),
         ],
       ),

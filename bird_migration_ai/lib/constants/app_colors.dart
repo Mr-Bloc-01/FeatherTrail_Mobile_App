@@ -36,4 +36,18 @@ class AppColors {
     Color(0xFFd4d4c8),
     Color(0x1A629584), // 10% opacity
   ];
+
+  // DARK MODE COLORS
+  static const Color darkBackgroundPrimary = Color(0xFF23272A);
+  static const Color darkBackgroundSecondary = Color(0xFF2C2F33);
+  static const Color darkCardBackground = Color(0xFF36393F);
+  static const Color darkTextPrimary = Colors.white;
+  static const Color darkTextSecondary = Color(0xFFB9BBBE);
+  static const Color darkTextLight = Colors.white;
+  static const Color darkTextLightSecondary = Color(0xFFB9BBBE);
+  static const List<Color> darkBackgroundGradient = [
+    Color(0xFF23272A),
+    Color(0xFF2C2F33),
+    Color(0xFF387478),
+  ];
 } 
